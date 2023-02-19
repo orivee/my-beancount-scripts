@@ -22,7 +22,7 @@ Account余额 = accounts['支付宝余额'] if '支付宝余额' in accounts els
 class AlipayProve(Base):
 
     def __init__(self, filename, byte_content, entries, option_map):
-        if re.search(r'alipay_record_\d{8}_\d{6}.zip$', filename):
+        if re.search(r'alipay_record_\d{8}_\d{6}_密码为身份证号码后6位.zip$', filename):
             password = input('支付宝账单密码：')
             z = AESZipFile(BytesIO(byte_content), 'r')
             z.setpassword(bytes(password.strip(), 'utf-8'))
@@ -31,7 +31,7 @@ class AlipayProve(Base):
                 byte_content = z.read(filelist[0])
         content = byte_content.decode("gbk")
         lines = content.split("\n")
-        if not re.search(r'支付宝（中国）网络技术有限公司', lines[0]):
+        if not re.search(r'支付宝（中国）网络技术有限公司', lines[23]):
             raise ValueError('Not Alipay Proven Record!')
 
         print('Import Alipay')
