@@ -94,7 +94,7 @@ class AlipayProve(Base):
                 else:
                     print(status)
                     exit(0)
-            elif trade_type == '其他':
+            elif trade_type == '其他' or trade_type == '不计收支':
                 if ('蚂蚁财富' in row['交易对方'] and '买入' in row['商品说明'] and status == '交易成功'):
                     # let fund.py happy
                     data.create_simple_posting(
